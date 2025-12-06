@@ -1,0 +1,22 @@
+[project]
+name = "advent-of-code-2025"
+version = "2025"
+authors = [
+    { name = "Leo Schleier", email = "43878374+leoschleier@users.noreply.github.com" },
+]
+description = "Advent of Code 2025 Solutions"
+
+[tool.ruff]
+fix = true
+line-length = 79
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+select = ["ALL"]
+ignore = [
+    "COM812", # Missing trailing comma (formatter)
+    "T201",   # Use of print statement 
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 72

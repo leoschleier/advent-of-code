@@ -1,3 +1,5 @@
+"""AOC 2025 day 3 part 1."""
+
 # /// script
 # requires-python = ">=3.14"
 # dependencies = []
@@ -8,17 +10,17 @@ from pathlib import Path
 
 def main() -> None:
     """Solve day 3 part 1."""
-    input = read_input()
-    input_split = input.split("\n")
+    data = read_input()
+    input_split = data.split("\n")
     input_int = [[int(s) for s in line] for line in input_split if line]
     answer = solve(input_int)
     print(f"Answer: {answer}")
 
 
-def solve(input: list[list[int]]) -> int:
+def solve(data: list[list[int]]) -> int:
     """Solve puzzle."""
     total_joltage = 0
-    for bank_number, bank in enumerate(input, start=1):
+    for bank_number, bank in enumerate(data, start=1):
         left_digit = max(bank[:-1])
         left_idx = bank.index(left_digit)
         right_digit = max(bank[left_idx + 1 :])
@@ -39,7 +41,7 @@ def read_input() -> str:
         else Path() / "input.txt"
     )
 
-    with open(file_path, "r") as f:
+    with file_path.open() as f:
         return f.read()
 
 

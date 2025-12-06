@@ -1,3 +1,4 @@
+"""AOC 2025, day 1, part 1."""
 # /// script
 # requires-python = ">=3.13"
 # dependencies = []
@@ -9,16 +10,16 @@ from pathlib import Path
 
 def main() -> None:
     """Solve day 1, part 1."""
-    input = read_input()
+    data = read_input()
 
-    answer = parse(input)
+    answer = parse(data)
 
     print(f"Answer: {answer}")
 
 
-def parse(input: str) -> int:
+def parse(data: str) -> int:
     """Parse input."""
-    input_split = input.split("\n")
+    input_split = data.split("\n")
     dial = 50
     password = 0
     for line in input_split:
@@ -46,7 +47,7 @@ def read_input() -> str:
         else Path() / "input.txt"
     )
 
-    with open(file_path, "r") as f:
+    with file_path.open() as f:
         return f.read()
 
 

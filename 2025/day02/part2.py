@@ -1,3 +1,5 @@
+"""AOC 2025, day 2, part 1."""
+
 # /// script
 # requires-python = ">=3.14"
 # dependencies = []
@@ -8,8 +10,8 @@ from pathlib import Path
 
 def main() -> None:
     """Solve day 2 part 2."""
-    input = read_input()
-    input_split = input.split(",")
+    data = read_input()
+    input_split = data.split(",")
     id_ranges: list[tuple[int, int]] = []
     for id_range in input_split:
         r = id_range.split("-")
@@ -23,21 +25,21 @@ def solve(id_ranges: list[tuple[int, int]]) -> int:
     """Solve puzzle."""
     invalid_sum = 0
     for start, end in id_ranges:
-        for id in range(start, end + 1):
+        for id_ in range(start, end + 1):
             if is_invalid(str(id)):
-                print(f"Invalid ID: {id}")
-                invalid_sum += id
+                print(f"Invalid ID: {id_}")
+                invalid_sum += id_
     return invalid_sum
 
 
-def is_invalid(id: str) -> bool:
+def is_invalid(id_: str) -> bool:
     """Check whether a given ID is invalid.
 
     An ID is invalid if only made of some sequence of digits repeated
     at least twice.
     """
-    id_len = len(id)
-    if id_len < 2:
+    id_len = len(id_)
+    if id_len < 2:  # noqa: PLR2004
         return False
 
     is_invalid = True
@@ -46,9 +48,9 @@ def is_invalid(id: str) -> bool:
             continue
 
         is_invalid = True
-        ref = id[:pattern_length]
+        ref = id_[:pattern_length]
         for i in range(pattern_length, id_len, pattern_length):
-            if ref != id[i : i + pattern_length]:
+            if ref != id_[i : i + pattern_length]:
                 is_invalid = False
                 break
 
@@ -66,7 +68,7 @@ def read_input() -> str:
         else Path() / "input.txt"
     )
 
-    with open(file_path, "r") as f:
+    with file_path.open() as f:
         return f.read()
 
 

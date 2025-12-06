@@ -1,3 +1,5 @@
+"""AOC 2025 day 4 part 1."""
+
 # /// script
 # requires-python = ">=3.14"
 # dependencies = []
@@ -7,18 +9,19 @@ from pathlib import Path
 
 
 def main() -> None:
-    """Solve day 3 part 1."""
-    input = read_input().split("\n")[:-1]
-    answer = solve(input)
+    """Solve day 4 part 1."""
+    data = read_input().split("\n")[:-1]
+    answer = solve(data)
     print(f"Answer: {answer}")
 
 
-def solve(input: list[str]) -> int:
+def solve(data: list[str]) -> int:
     """Solve puzzle."""
+    movable_threshold = 4
     n_accessible = 0
-    column_len = len(input)
+    column_len = len(data)
     for row_idx in range(column_len):
-        row = input[row_idx]
+        row = data[row_idx]
         row_len = len(row)
         for column_idx in range(row_len):
             item = row[column_idx]
@@ -27,16 +30,16 @@ def solve(input: list[str]) -> int:
                 below = min(row_idx + 1, column_len - 1)
                 left = max(column_idx - 1, 0)
                 right = min(column_idx + 1, row_len - 1)
-                adjacent = set(
+                adjacent = {
                     (r, c)
                     for r in range(above, below + 1)
                     for c in range(left, right + 1)
-                ) - set([(row_idx, column_idx)])
+                } - {(row_idx, column_idx)}
                 n_ajdacent_rolls = 0
                 for r, c in adjacent:
-                    if input[r][c] == "@":
+                    if data[r][c] == "@":
                         n_ajdacent_rolls += 1
-                if n_ajdacent_rolls < 4:
+                if n_ajdacent_rolls < movable_threshold:
                     print(f"{(row_idx, column_idx)} accessible")
                     n_accessible += 1
 
@@ -51,7 +54,7 @@ def read_input() -> str:
         else Path() / "input.txt"
     )
 
-    with open(file_path, "r") as f:
+    with file_path.open() as f:
         return f.read()
 
 

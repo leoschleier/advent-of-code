@@ -1,3 +1,5 @@
+"""AOC 2025, day 2, part 1."""
+
 # /// script
 # requires-python = ">=3.14"
 # dependencies = []
@@ -8,8 +10,8 @@ from pathlib import Path
 
 def main() -> None:
     """Solve day 2 part 1."""
-    input = read_input()
-    input_split = input.split(",")
+    data = read_input()
+    input_split = data.split(",")
     id_ranges: list[tuple[int, int]] = []
     for id_range in input_split:
         r = id_range.split("-")
@@ -23,30 +25,26 @@ def solve(id_ranges: list[tuple[int, int]]) -> int:
     """Solve puzzle."""
     invalid_sum = 0
     for start, end in id_ranges:
-        for id in range(start, end + 1):
-            if is_invalid(str(id)):
-                print(f"Invalid ID: {id}")
-                invalid_sum += id
+        for id_ in range(start, end + 1):
+            if is_invalid(str(id_)):
+                print(f"Invalid ID: {id_}")
+                invalid_sum += id_
     return invalid_sum
 
 
-def is_invalid(id: str) -> bool:
+def is_invalid(id_: str) -> bool:
     """Check whether a given ID is invalid.
 
     An ID is invalid if only made of some sequence of digits repeated
     twice.
     """
-    id_len = len(id)
+    id_len = len(id_)
     if id_len % 2 != 0:
         return False
 
     mid = id_len // 2
 
-    for i in range(0, mid):
-        if id[i] != id[i + mid]:
-            return False
-
-    return True
+    return all(id_[i] == id_[i + mid] for i in range(mid))
 
 
 def read_input() -> str:
@@ -57,7 +55,7 @@ def read_input() -> str:
         else Path() / "input.txt"
     )
 
-    with open(file_path, "r") as f:
+    with file_path.open() as f:
         return f.read()
 
 
